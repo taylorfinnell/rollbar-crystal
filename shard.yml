@@ -1,0 +1,13 @@
+name: rollbar-crystal
+version: 0.1.0
+
+authors:
+  - adamcreekroad <adam@adam-george.com>
+
+targets:
+  rollbar-crystal:
+    main: src/rollbar-crystal.cr
+
+crystal: 0.22.0
+
+license: MIT
