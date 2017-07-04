@@ -2,25 +2,24 @@ module Rollbar
   class Item
     class Backtrace
       property exception : Exception
-      property message   : String | Nil
-      property frames    : Hash(String, String | Int64) | Nil
+      property message : String | Nil
+      property frames : Array(Hash(String, String | Int32))
 
       def initialize(@exception, @message)
+        @frames = map_frames
       end
 
       def map_frames
-        exception.backtrace.map do |frame|
-          Frame.new(self, frame).to_h
-        end
+        @exception.backtrace.map { |frame| Frame.new(frame).data }
       end
 
       def trace_data
         {
-          "frames"    => map_frames,
+          "frames"    => frames,
           "exception" => {
             "class"   => exception.class.name,
-            "message" => message
-          }
+            "message" => message,
+          },
         }
       end
     end

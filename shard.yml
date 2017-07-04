@@ -8,6 +8,10 @@ targets:
   rollbar-crystal:
     main: src/rollbar-crystal.cr
 
+dependencies:
+  dotenv:
+    github: gdotdesign/cr-dotenv
+
 crystal: 0.22.0
 
 license: MIT

@@ -19,18 +19,17 @@ module Rollbar
     def report(level : String, message : String | Nil, exception : Exception | Nil)
       item = build_item(level, message, exception)
 
-      response = HTTP::Client.post(Configuration::DEFAULT_ENDPOINT, nil, item.payload.to_json)
+      response = HTTP::Client.post(Configuration::DEFAULT_ENDPOINT, nil, item.to_json)
 
       puts response.body
 
-      item.payload["data"]
+      item["data"]
     end
 
     private def build_item(level : String, message : String | Nil, exception : Exception | Nil)
       item = Item.new(level, message, exception, self)
-      item.build
 
-      item
+      item.build
     end
   end
 end

@@ -1,17 +1,24 @@
 require "./rollbar"
+require "dotenv"
+
+# Load environment
+Dotenv.load
 
 Rollbar.configure do |config|
-  config.access_token = ENV["POST_SERVER_ITEM_ACCESS_TOKEN"]
-  config.environment  = "development"
+  config.access_token = ENV["ROLLBAR_SERVER_ACCESS_TOKEN"]
+  config.environment = "development"
 end
 
 class MyBigFatEexception < Exception
 end
 
+class FoobarException < Exception
+end
+
 begin
-  raise MyBigFatEexception.new
-rescue e : MyBigFatEexception
-  result1 = Rollbar.error(MyBigFatEexception.new)
+  raise FoobarException.new("I am an error!")
+rescue e : Exception
+  result1 = Rollbar.error(e)
 
   puts result1
 end

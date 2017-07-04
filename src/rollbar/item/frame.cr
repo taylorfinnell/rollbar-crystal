@@ -1,21 +1,20 @@
+require "json"
+
 module Rollbar
   class Item
     class Frame
-      property backtrace : Backtrace
-      property frame     : String
+      property frame : String
 
-      def initialize(@backtrace, @frame)
+      def initialize(@frame)
       end
 
-      def to_h
+      def data
         match = frame.match(/.* at (.*) (\d+):(\d+)/)
 
-        return {} of String => String | Int64 if match.nil?
-
         {
-          "filename" => match[1],
-          "lineno"   => match[2].to_i,
-          "colno"    => match[3].to_i
+          "filename" => match ? match[1] : "",
+          "lineno"   => match ? match[2].to_i : 0,
+          "colno"    => match ? match[3].to_i : 0,
         }
       end
     end
