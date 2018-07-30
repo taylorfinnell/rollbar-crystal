@@ -1,8 +1,4 @@
 require "./rollbar"
-require "dotenv"
-
-# Load environment
-Dotenv.load
 
 Rollbar.configure do |config|
   config.access_token = ENV["ROLLBAR_SERVER_ACCESS_TOKEN"]

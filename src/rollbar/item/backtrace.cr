@@ -3,14 +3,10 @@ module Rollbar
     class Backtrace
       property exception : Exception
       property message : String | Nil
-      property frames : Array(Hash(String, String | Int32))
+      property frames : Array(Frame)
 
       def initialize(@exception, @message)
-        @frames = map_frames
-      end
-
-      def map_frames
-        @exception.backtrace.map { |frame| Frame.new(frame).data }
+        @frames = generate_frames(@exception.inspect_with_backtrace)
       end
 
       def trace_data
@@ -21,6 +17,17 @@ module Rollbar
             "message" => message,
           },
         }
+      end
+
+      private def generate_frames(message)
+        generated_frames = [] of Frame
+        if raw_frames = message.scan(/\s([^\s\:]+):(\d+)([^\n]+)/)
+          raw_frames.each_with_index do |frame, index|
+            generated_frames << Frame.new(raw_frame: frame, index: index)
+          end
+        end
+
+        generated_frames
       end
     end
   end
