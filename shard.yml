@@ -1,5 +1,5 @@
 name: rollbar-crystal
-version: 0.1.0
+version: 0.1.1
 
 authors:
   - adamcreekroad <adam@adam-george.com>
@@ -8,10 +8,6 @@ targets:
   rollbar-crystal:
     main: src/rollbar-crystal.cr
 
-dependencies:
-  dotenv:
-    github: gdotdesign/cr-dotenv
-
-crystal: 0.22.0
+crystal: 0.26.0
 
 license: MIT
