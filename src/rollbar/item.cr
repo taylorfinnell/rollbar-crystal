@@ -40,7 +40,7 @@ module Rollbar
     end
 
     private def build_body(exception : Exception)
-      trace = Backtrace.new(exception, message)
+      trace = Backtrace.new(exception)
 
       {
         "trace" => trace.trace_data,

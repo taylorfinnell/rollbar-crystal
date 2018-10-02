@@ -5,7 +5,7 @@ module Rollbar
       property message : String | Nil
       property frames : Array(Frame)
 
-      def initialize(@exception, @message)
+      def initialize(@exception)
         @frames = generate_frames(@exception.inspect_with_backtrace)
       end
 
@@ -14,7 +14,7 @@ module Rollbar
           "frames"    => frames,
           "exception" => {
             "class"   => exception.class.name,
-            "message" => message,
+            "message" => exception.message,
           },
         }
       end
