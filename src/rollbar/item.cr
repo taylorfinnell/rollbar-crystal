@@ -25,7 +25,7 @@ module Rollbar
       body = build_body(body_param)
 
       data = {
-        "timestamp"   => Time.now.epoch,
+        "timestamp"   => Time.now.to_unix,
         "environment" => notifier.configuration.environment,
         "level"       => level,
         "language"    => "crystal",
